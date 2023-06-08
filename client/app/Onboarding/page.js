@@ -30,7 +30,7 @@ export default function Onboarding() {
     try {
         const response = await axios.put('http://localhost:8000/user', {formData})
         const success = response.status === 200
-        console.log(response)
+
         if (success) router.push('/Dashboard')
     } catch (err) {
         console.log(err)

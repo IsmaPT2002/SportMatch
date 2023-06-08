@@ -103,7 +103,9 @@ app.get('/users', async (req, res) => {
 
 app.get('/user', async (req, res) => {
     const client = new MongoClient(uri)
-    const userId = req.query.userId
+    const userId = req.params.userId
+
+    console.log('userId', userId)
 
     try {
         await client.connect()
