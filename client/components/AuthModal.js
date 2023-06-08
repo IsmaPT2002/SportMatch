@@ -9,9 +9,9 @@ export default function AuthModal({setShowModal, isSignUp}) {
     const [confirmPassword, setConfirmPassword] = useState(null)
     const [error, setError] = useState(null)
 
-    let navigate = useNavigate()
+    // let navigate = useNavigate()
 
-    console.log(email, password, confirmPassword, error)
+    console.log(email, password, confirmPassword)
 
     const handleClick = () => {
         setShowModal(false)
@@ -24,6 +24,7 @@ export default function AuthModal({setShowModal, isSignUp}) {
                 setError('Passwords do not match')
                 return
             }
+            console.log('posting', email, password)
             const response = await axios.post('http://localhost:8000/signup', { email, password })
 
             const sucess = response.status === 201

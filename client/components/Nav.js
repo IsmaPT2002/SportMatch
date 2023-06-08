@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react';
 import Image from 'next/image';
-import logo from '../images/logo.jpg'
+import logo from '/public/images/logo.jpg'
 
 export default function Nav({minimal, authToken, setShowModal, showModal, setIsSignUp}) {
 const handleClick = () => {
