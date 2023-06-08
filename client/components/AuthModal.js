@@ -1,15 +1,17 @@
 'use client'
 import { useState } from 'react';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+import { useCookies } from 'react-cookie'
 
 export default function AuthModal({setShowModal, isSignUp}) {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [confirmPassword, setConfirmPassword] = useState(null)
     const [error, setError] = useState(null)
+    const [cookies, setCookie, removeCookie] = useCookies(['user'])
 
-    // let navigate = useNavigate()
+    const router = useRouter();
 
     console.log(email, password, confirmPassword)
 
@@ -25,11 +27,16 @@ export default function AuthModal({setShowModal, isSignUp}) {
                 return
             }
             console.log('posting', email, password)
-            const response = await axios.post('http://localhost:8000/signup', { email, password })
+            const response = await axios.post(`http://localhost:8000/${isSignUp ? 'signup' : 'login'}`, { email, password })
+
+        
+            setCookie('AuthToken', response.data.auth_token) 
+            setCookie('UserId', response.data.userId)
 
             const sucess = response.status === 201
 
-            if (sucess) navigate ('/onboarding')
+            if (sucess && isSignUp) router.push ('/Onboarding')
+            if (sucess && !isSignUp) router.push ('/Dashboard')
 
         } catch (error) {
             console.log(error)
