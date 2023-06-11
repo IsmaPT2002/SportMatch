@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const bcrypt = require('bcrypt')
 
-const uri = 'mongodb+srv://ptisma2002:G1po3Ahie55eseRv@cluster0.egj2ofm.mongodb.net/?retryWrites=true&w=majority'
+const uri = 'mongodb+srv://ptisma2002:jfMeZeBLLPeiKVbs@cluster0.egj2ofm.mongodb.net/?retryWrites=true&w=majority'
 
 const app = express()
 app.use(cors())
@@ -84,18 +84,18 @@ app.post('/login', async (req, res) => {
 })
 
 // Sign up to the Database
-app.get('/users', async (req, res) => {
+app.get('/gendered-users', async (req, res) => {
     const client = new MongoClient(uri)
-
+    const gender = req.query.gender
 
     try {
         await client.connect()
         const database = client.db('app-data')
         const users = database.collection('users')
+        const query = {gender_identity: {$eq: gender}}
+        const foundUsers = await users.find(query).toArray()
+        res.send(foundUsers)
 
-
-        const returnedUsers = await users.find().toArray()
-        res.send(returnedUsers)
     } finally {
         await client.close()
     }
@@ -103,7 +103,7 @@ app.get('/users', async (req, res) => {
 
 app.get('/user', async (req, res) => {
     const client = new MongoClient(uri)
-    const userId = req.params.userId
+    const userId = req.query.userId
 
     console.log('userId', userId)
 
