@@ -6,11 +6,12 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const bcrypt = require('bcrypt')
 
-const uri = 'mongodb+srv://ptisma2002:jfMeZeBLLPeiKVbs@cluster0.egj2ofm.mongodb.net/?retryWrites=true&w=majority'
-
+const uri = 'mongodb+srv://ismapt:QxwCsVD99zkeWd5I@cluster0.egj2ofm.mongodb.net/?retryWrites=true&w=majority'
 const app = express()
 app.use(cors())
 app.use(express.json())
+
+const client = new MongoClient(uri);
 
 // Default
 app.get('/', (req, res) => {
@@ -18,7 +19,6 @@ app.get('/', (req, res) => {
 })
 
 app.post('/signup', async (req, res) => {
-    const client = new MongoClient(uri)
     console.log(req.body)
     const {email, password} = req.body
 
@@ -50,6 +50,9 @@ app.post('/signup', async (req, res) => {
             expiresIn: 60 * 24
         })
         res.status(201).json({token, userId: generateduserId})
+        const router = useRouter();
+
+        return router.push('/Onboarding');
 
     } catch (err) {
         console.log(err)
@@ -57,7 +60,7 @@ app.post('/signup', async (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
-    const client = new MongoClient(uri)
+    
     const {email, password} = req.body
 
     try {
@@ -85,7 +88,7 @@ app.post('/login', async (req, res) => {
 
 
 app.get('/gendered-users', async (req, res) => {
-    const client = new MongoClient(uri)
+    
     const gender = req.query.gender
 
     try {
@@ -94,19 +97,21 @@ app.get('/gendered-users', async (req, res) => {
         const users = database.collection('users')
         const query = {gender_identity: {$eq: gender}}
         const foundUsers = await users.find(query).toArray()
+        console.log("USUARIOS: ", foundUsers);
         res.send(foundUsers)
 
-    } finally {
+    }catch(error){
+        console.log(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }  finally {
         await client.close()
     }
 })
 
 app.get('/user', async (req, res) => {
-    const client = new MongoClient(uri)
+    
     const userId = req.query.userId
-
-    console.log('userId', userId)
-
+  
     try {
         await client.connect()
         const database = client.db('app-data')
@@ -115,14 +120,16 @@ app.get('/user', async (req, res) => {
         const query = {user_id: userId}
         const user = await users.findOne(query)
         res.send(user)
-
+    }catch(error){
+        console.log(error);
+        res.status(500).json({ error: 'Internal Server Error' });
     } finally {
         await client.close()
     }
 })
 
 app.put('/user', async (req, res) => {
-    const client = new MongoClient(uri)
+    
     const formData = req.body.formData
 
     try {

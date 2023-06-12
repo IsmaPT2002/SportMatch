@@ -35,10 +35,11 @@ export default function AuthModal({setShowModal, isSignUp}) {
             setCookie('UserId', response.data.userId)
 
             const success = response.status === 201
+          
             if (success && isSignUp) router.push ('/Onboarding')
             if (success && !isSignUp) router.push ('/Dashboard')
 
-            window.location.reload()
+            //window.location.reload()
 
         } catch (error) {
             console.log(error)

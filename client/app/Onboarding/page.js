@@ -134,7 +134,7 @@ export default function Onboarding() {
               />
               <label htmlFor="more-gender-identity">Otros</label>
             </div>
-            
+
             <label>Género de interés</label>
 
             <div className="multiple-input-container">
@@ -181,33 +181,33 @@ export default function Onboarding() {
 
             <label htmlFor="discipline">Disciplina deportiva</label>
             <select
-  id="discipline"
-  name="discipline"
-  value={formData.discipline}
-  onChange={handleChange}
-  required={true}
->
-  <option value="">Selecciona una disciplina</option>
-  <option value="Fútbol">Fútbol</option>
-  <option value="Baloncesto">Baloncesto</option>
-  <option value="Natación">Natación</option>
-  <option value="Tenis">Tenis</option>
-  <option value="Atletismo">Atletismo</option>
-  <option value="Gimnasia">Gimnasia</option>
-  <option value="Ciclismo">Ciclismo</option>
-  <option value="Voleibol">Voleibol</option>
-  <option value="Hockey">Hockey</option>
-  <option value="Rugby">Rugby</option>
-  <option value="Boxeo">Boxeo</option>
-  <option value="Escalada">Escalada</option>
-  <option value="Yoga">Yoga</option>
-  <option value="Pilates">Pilates</option>
-  <option value="Artes marciales">Artes marciales</option>
-  <option value="Esgrima">Esgrima</option>
-  <option value="Surf">Surf</option>
-  <option value="Snowboard">Snowboard</option>
-  <option value="Esquí">Esquí</option>
-</select>
+              id="discipline"
+              name="discipline"
+              value={formData.discipline}
+              onChange={handleChange}
+              required={true}
+            >
+              <option value="">Selecciona una disciplina</option>
+              <option value="Fútbol">Fútbol</option>
+              <option value="Baloncesto">Baloncesto</option>
+              <option value="Natación">Natación</option>
+              <option value="Tenis">Tenis</option>
+              <option value="Atletismo">Atletismo</option>
+              <option value="Gimnasia">Gimnasia</option>
+              <option value="Ciclismo">Ciclismo</option>
+              <option value="Voleibol">Voleibol</option>
+              <option value="Hockey">Hockey</option>
+              <option value="Rugby">Rugby</option>
+              <option value="Boxeo">Boxeo</option>
+              <option value="Escalada">Escalada</option>
+              <option value="Yoga">Yoga</option>
+              <option value="Pilates">Pilates</option>
+              <option value="Artes marciales">Artes marciales</option>
+              <option value="Esgrima">Esgrima</option>
+              <option value="Surf">Surf</option>
+              <option value="Snowboard">Snowboard</option>
+              <option value="Esquí">Esquí</option>
+            </select>
 
             <label htmlFor="experience_level">Nivel de experiencia</label>
             <select
@@ -224,13 +224,13 @@ export default function Onboarding() {
             </select>
 
             <input
-  type="text"
-  name="training_preferences"
-  value={formData.training_preferences}
-  onChange={handleChange}
-  placeholder="Escribe tus preferencias de entrenamiento..."
-  required={true}
-/>
+              type="text"
+              name="training_preferences"
+              value={formData.training_preferences}
+              onChange={handleChange}
+              placeholder="Escribe tus preferencias de entrenamiento..."
+              required={true}
+            />
 
             <input type="submit" />
           </section>

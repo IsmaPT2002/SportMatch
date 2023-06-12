@@ -17,6 +17,7 @@ export default function Dashboard() {
         params: { userId }
       })
       setUser(response.data)
+   
     } catch (error) {
       console.log(error)
     }
@@ -33,13 +34,14 @@ export default function Dashboard() {
     }
   }
 
-  useEffect(() => {
-    getUser()
-    getGenderedUsers()
-  }, [user, getGenderedUsers])
+  const fetchData = async() =>{
+    await getUser();
+    await getGenderedUsers();
+  }
 
-  console.log(user)
-  console.log(genderedUsers)
+  useEffect(() => {
+   fetchData();
+  },[userId]);
 
   return (
     <>
@@ -56,7 +58,7 @@ export default function Dashboard() {
                   style={{ backgroundImage: "url(" + character.url + ")" }}
                   className="card-background"
                 />
-                <h3>{character.name}</h3>
+                <h3>{character.first_name}</h3>
               </div>
             ))}
           </div>
