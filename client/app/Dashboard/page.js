@@ -1,4 +1,4 @@
-'use c'
+'use client'
 import { useEffect, useState } from 'react'
 import ChatContainer from '@/components/ChatContainer'
 import { useCookies } from 'react-cookie'

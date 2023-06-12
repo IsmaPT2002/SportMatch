@@ -50,14 +50,14 @@ export default function AuthModal({setShowModal, isSignUp}) {
         <div className="auth-modal">
             <div className="close-icon" onClick={handleClick}>ⓧ</div>
 
-            <h2>{isSignUp ? 'CREATE ACCOUNT': 'LOG IN'}</h2>
-            <p>By clicking Log In, you agree to our terms. Learn how we process your data in our Privacy Policy and Cookie Policy.</p>
+            <h2>{isSignUp ? 'CREAR CUENTA': 'INCIAR SESION'}</h2>
+            <p>Al hacer clic en Iniciar sesión, acepta nuestros términos. Conoce cómo procesamos tus datos en nuestra Política de Privacidad y Política de Cookies.</p>
             <form onSubmit={handleSubmit}>
                 <input
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="email"
+                    placeholder="Correo electronico"
                     required={true}
                     onChange={(e) => setEmail(e.target.value)}
                 />
@@ -65,7 +65,7 @@ export default function AuthModal({setShowModal, isSignUp}) {
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="password"
+                    placeholder="Contraseña"
                     required={true}
                     onChange={(e) => setPassword(e.target.value)}
                 />
@@ -73,17 +73,13 @@ export default function AuthModal({setShowModal, isSignUp}) {
                     type="password"
                     id="password-check"
                     name="password-check"
-                    placeholder="confirm password"
+                    placeholder="Confirmar contraseña"
                     required={true}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />}
                 <input className="secondary-button" type="submit"/>
                 <p>{error}</p>
             </form>
-
-            <hr/>
-            <h2>GET THE APP</h2>
-
         </div>
     )
 }

@@ -13,7 +13,7 @@ const handleClick = () => {
             <Image src={logo} alt="Swipe Right Logo" width={50} height={50} />
             {!authToken &&  !minimal && 
             <button className="nav-button" onClick={handleClick} disabled={showModal}>
-                LOG IN
+                INICIAR SESION
             </button>}
         </div>
     </nav>

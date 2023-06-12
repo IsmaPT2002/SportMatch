@@ -83,7 +83,7 @@ app.post('/login', async (req, res) => {
     }
 })
 
-// Sign up to the Database
+
 app.get('/gendered-users', async (req, res) => {
     const client = new MongoClient(uri)
     const gender = req.query.gender

@@ -28,7 +28,7 @@ export default function Home() {
       <div className="home">
         <h1 className="primary-title">Sport Match®</h1>
         <button className="primary-button" onClick={handleClick}>
-          {authToken ? "Signout" : "Create Account"}
+          {authToken ? "Desconectar" : "CREAR CUENTA"}
         </button>
 
         {showModal && 
