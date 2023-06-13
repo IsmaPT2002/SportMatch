@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const bcrypt = require('bcrypt')
 
-const uri = 'mongodb+srv://ismapt:KoPNOPLoD0fbbtvK@cluster0.egj2ofm.mongodb.net/?retryWrites=true&w=majority'
+const uri = 'mongodb+srv://ismapt:3iaM9R7bC6OOcmNJ@cluster0.egj2ofm.mongodb.net/?retryWrites=true&w=majority'
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -124,28 +124,7 @@ app.get('/user', async (req, res) => {
     } finally {
         await client.close()
     }
-})
-
-app.get('/collections', async (req, res) => {
-    const genderInterest = req.query.genderInterest; // Género de interés del usuario logueado
-    
-    try {
-      await client.connect();
-      const database = client.db('app-data');
-      const collections = database.collection('collections');
-      
-      const query = { gender_identity: genderInterest };
-      const matchingCollections = await collections.find(query).toArray();
-      
-      res.send(matchingCollections);
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    } finally {
-      await client.close();
-    }
-  });
-  
+})  
 
 app.put('/user', async (req, res) => {
     

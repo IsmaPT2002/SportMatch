@@ -13,55 +13,39 @@ export default function Dashboard() {
 
   const userId = cookies.UserId
 
-  const getUser = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/user', {
-        params: { userId }
-      })
-      setUser(response.data)
-      getGenderedUsers();
-   
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const getGenderedUsers = async () => {
-    try {
-        const response = await axios.get('http://localhost:8000/gendered-users', {
-          params: { gender: user.gender_interest }
-        });
-        setGenderedUsers(response.data);
-        console.log(response.data);
-
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getCollections = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/collections', {
-        params: { genderInterest: user.gender_interest }
-      });
-      console.log(response.data);
-      // Aquí puedes realizar cualquier acción con las colecciones obtenidas
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  
-  
-
-  const fetchData = async() =>{
-    await getUser();
-    await getGenderedUsers();
-    await getCollections();
-  }
-
   useEffect(() => {
-   fetchData();
-  },[userId]);
+    const getUser = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/user', {
+          params: { userId }
+        })
+        setUser(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  
+    getUser();
+  }, [userId])
+  
+  useEffect(() => {
+    const getGenderedUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/gendered-users', {
+          params: { gender: user?.gender_interest }
+        })
+        setGenderedUsers(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  
+    if (user?.gender_interest) {
+      getGenderedUsers();
+    }
+  }, [user])
+  
+  console.log(genderedUsers)
 
   const updateMatches = async (matchedUserId) => {
     try {
@@ -74,6 +58,8 @@ export default function Dashboard() {
         console.log(err)
     }
 }
+
+console.log(user)
 
 
   const swiped = (direction, swipedUserId) => {
