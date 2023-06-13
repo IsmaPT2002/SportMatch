@@ -44,7 +44,6 @@ export default function AuthModal({setShowModal, isSignUp}) {
         } catch (error) {
             console.log(error)
         }
-
     }
 
     return (

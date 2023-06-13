@@ -85,6 +85,37 @@ app.post('/login', async (req, res) => {
 })
 
 
+app.get('/users', async (req, res) => {
+    const client = new MongoClient(uri)
+    const userIds = JSON.parse(req.query.userIds)
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+
+        const pipeline =
+            [
+                {
+                    '$match': {
+                        'user_id': {
+                            '$in': userIds
+                        }
+                    }
+                }
+            ]
+
+        const foundUsers = await users.aggregate(pipeline).toArray()
+        console.log(foundUsers)
+        res.send(foundUsers)
+
+    } finally {
+        await client.close()
+    }
+})
+
+
+
 app.get('/gendered-users', async (req, res) => {
     const gender = req.query.gender ?? 'man';
   
@@ -94,8 +125,6 @@ app.get('/gendered-users', async (req, res) => {
       const users = database.collection('users');
       const query = { gender_identity:  {$eq: gender}};
       const foundUsers = await users.find(query).toArray();
-      console.log("USUARIOS: ", foundUsers);
-      console.log(gender);
       res.send(foundUsers);
     } catch (error) {
       console.log(error);
@@ -178,6 +207,42 @@ app.put('/addmatch', async (req, res) => {
         }
         const user = await users.updateOne(query, updateDocument)
         res.send(user)
+    } finally {
+        await client.close()
+    }
+})
+
+app.get('/messages', async (req, res) => {
+    const {userId, correspondingUserId} = req.query
+    const client = new MongoClient(uri)
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const messages = database.collection('messages')
+
+        const query = {
+            from_userId: userId, to_userId: correspondingUserId
+        }
+        const foundMessages = await messages.find(query).toArray()
+        res.send(foundMessages)
+    } finally {
+        await client.close()
+    }
+})
+
+
+app.post('/message', async (req, res) => {
+    const client = new MongoClient(uri)
+    const message = req.body.message
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const messages = database.collection('messages')
+
+        const insertedMessage = await messages.insertOne(message)
+        res.send(insertedMessage)
     } finally {
         await client.close()
     }

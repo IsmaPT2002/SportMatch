@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [user, setUser] = useState(null)
   const [genderedUsers, setGenderedUsers] = useState(null)
   const [lastDirection, setLastDirection] = useState()
-  const [cookies, setCookie, removeCookie] = useCookies(['user'])
+  const [cookies] = useCookies(['user'])
 
   const userId = cookies.UserId
 
@@ -44,8 +44,6 @@ export default function Dashboard() {
       getGenderedUsers();
     }
   }, [user])
-  
-  console.log(genderedUsers)
 
   const updateMatches = async (matchedUserId) => {
     try {
@@ -59,8 +57,6 @@ export default function Dashboard() {
     }
 }
 
-console.log(user)
-
 
   const swiped = (direction, swipedUserId) => {
     if (direction === 'right') {
@@ -73,6 +69,10 @@ const outOfFrame = (name) => {
     console.log(name + ' left the screen!')
 }
 
+const matchedUserIds = user?.matches.map(({user_id}) => user_id).concat(userId)
+
+const filteredGenderedUsers = genderedUsers?.filter(genderedUser => !matchedUserIds.includes(genderedUser.user_id))
+
   return (
     <>
             {user &&
@@ -81,7 +81,7 @@ const outOfFrame = (name) => {
                 <div className="swipe-container">
                     <div className="card-container">
 
-                        {genderedUsers?.map((genderedUser) =>
+                        {filteredGenderedUsers?.map((genderedUser) =>
                             <TinderCard
                                 className="swipe"
                                 key={genderedUser.user_id}
