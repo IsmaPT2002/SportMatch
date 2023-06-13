@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const bcrypt = require('bcrypt')
 
-const uri = 'mongodb+srv://ismapt:QxwCsVD99zkeWd5I@cluster0.egj2ofm.mongodb.net/?retryWrites=true&w=majority'
+const uri = 'mongodb+srv://ismapt:KoPNOPLoD0fbbtvK@cluster0.egj2ofm.mongodb.net/?retryWrites=true&w=majority'
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -79,8 +79,6 @@ app.post('/login', async (req, res) => {
             res.status(201).json({token, userId: user.user_id})
         }
 
-        res.status(400).json('Invalid Credentials')
-
     } catch (err) {
         console.log(err)
     }
@@ -88,25 +86,25 @@ app.post('/login', async (req, res) => {
 
 
 app.get('/gendered-users', async (req, res) => {
-    
-    const gender = req.query.gender
-
+    const gender = req.query.gender ?? 'man';
+  
     try {
-        await client.connect()
-        const database = client.db('app-data')
-        const users = database.collection('users')
-        const query = {gender_identity: {$eq: gender}}
-        const foundUsers = await users.find(query).toArray()
-        console.log("USUARIOS: ", foundUsers);
-        res.send(foundUsers)
-
-    }catch(error){
-        console.log(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }  finally {
-        await client.close()
+      await client.connect();
+      const database = client.db('app-data');
+      const users = database.collection('users');
+      const query = { gender_identity:  {$eq: gender}};
+      const foundUsers = await users.find(query).toArray();
+      console.log("USUARIOS: ", foundUsers);
+      console.log(gender);
+      res.send(foundUsers);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } finally {
+      await client.close();
     }
-})
+  });
+  
 
 app.get('/user', async (req, res) => {
     
@@ -128,36 +126,79 @@ app.get('/user', async (req, res) => {
     }
 })
 
+app.get('/collections', async (req, res) => {
+    const genderInterest = req.query.genderInterest; // Género de interés del usuario logueado
+    
+    try {
+      await client.connect();
+      const database = client.db('app-data');
+      const collections = database.collection('collections');
+      
+      const query = { gender_identity: genderInterest };
+      const matchingCollections = await collections.find(query).toArray();
+      
+      res.send(matchingCollections);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } finally {
+      await client.close();
+    }
+  });
+  
+
 app.put('/user', async (req, res) => {
     
     const formData = req.body.formData
 
     try {
         await client.connect()
-        const database = client.db('app-data')
-        const users = database.collection('users')
+        const database = client.db("app-data");
+        const users = database.collection("users");
 
-        const query = {user_id: formData.user_id}
+        const query = { user_id: formData.user_id };
 
         const updateDocument = {
-            $set: {
-                first_name: formData.first_name,
-                dob_day: formData.dob_day,
-                dob_month: formData.dob_month,
-                dob_year: formData.dob_year,
-                show_gender: formData.show_gender,
-                gender_identity: formData.gender_identity,
-                gender_interest: formData.gender_interest,
-                url: formData.url,
-                about: formData.about,
-                matches: formData.matches
-            },
-        }
+          $set: {
+            first_name: formData.first_name,
+            dob_day: formData.dob_day,
+            dob_month: formData.dob_month,
+            dob_year: formData.dob_year,
+            gender_identity: formData.gender_identity,
+            gender_interest: formData.gender_interest,
+            url: formData.url,
+            discipline: formData.discipline,
+            experience_level: formData.experience_level,
+            training_preferences: formData.training_preferences,
+            matches: formData.matches,
+          },
+        };
 
         const insertedUser = await users.updateOne(query, updateDocument)
 
         res.json(insertedUser)
 
+    } finally {
+        await client.close()
+    }
+})
+
+// Update User with a match
+app.put('/addmatch', async (req, res) => {
+    const client = new MongoClient(uri)
+    const {userId, matchedUserId} = req.body
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+
+        const query = {user_id: userId}
+        const updateDocument = {
+            $push: {matches: {user_id: matchedUserId}}
+        }
+        const user = await users.updateOne(query, updateDocument)
+        res.send(user)
     } finally {
         await client.close()
     }

@@ -18,7 +18,8 @@ export default function Onboarding() {
     url: "",
     discipline: "",
     experience_level: "",
-    training_preferences: ""
+    training_preferences: "",
+    matches: []
   })
 
   const router = useRouter();
