@@ -66,7 +66,7 @@ export default function Dashboard() {
 }
 
 const outOfFrame = (name) => {
-    console.log(name + ' left the screen!')
+    console.log('Te gusta ' + name + '!!')
 }
 
 const matchedUserIds = user?.matches.map(({user_id}) => user_id).concat(userId)
@@ -94,9 +94,9 @@ const filteredGenderedUsers = genderedUsers?.filter(genderedUser => !matchedUser
                                 </div>
                             </TinderCard>
                         )}
-                        <div className="swipe-info">
-                            {lastDirection ? <p>You swiped {lastDirection}</p> : <p/>}
-                        </div>
+                        {/* <div className="swipe-info">
+                            {lastDirection ? <p> {lastDirection}</p> : <p/>}
+                        </div> */}
                     </div>
                 </div>
             </div>}

@@ -9,12 +9,9 @@ export default function AuthModal({setShowModal, isSignUp}) {
     const [password, setPassword] = useState(null)
     const [confirmPassword, setConfirmPassword] = useState(null)
     const [error, setError] = useState(null)
-    const [cookies, setCookie, removeCookie] = useCookies([null])
+    const [cookies, setCookie] = useCookies([null])
 
     const router = useRouter();
-
-    console.log(email, password, confirmPassword)
-
 
     const handleClick = () => {
         setShowModal(false)
@@ -25,7 +22,7 @@ export default function AuthModal({setShowModal, isSignUp}) {
 
         try {
             if (isSignUp && (password !== confirmPassword)) {
-                setError('Passwords need to match!')
+                setError('Las contraseñas no coinciden !!')
                 return
             }
 

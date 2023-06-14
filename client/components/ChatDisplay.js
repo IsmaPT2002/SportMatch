@@ -45,6 +45,7 @@ export default function ChatDisplay({ user, clickedUser }) {
         formattedMessage['img'] = user?.url
         formattedMessage['message'] = message.message
         formattedMessage['timestamp'] = message.timestamp
+        formattedMessage['sender'] = 'user'
         messages.push(formattedMessage)
     })
 
@@ -54,6 +55,7 @@ export default function ChatDisplay({ user, clickedUser }) {
       formattedMessage['img'] = clickedUser?.url
       formattedMessage['message'] = message.message
       formattedMessage['timestamp'] = message.timestamp
+      formattedMessage['sender'] = 'clickedUser'
       messages.push(formattedMessage)
   })
 
@@ -63,6 +65,7 @@ export default function ChatDisplay({ user, clickedUser }) {
     return (
       <>
       <Chat descendingOrderMessages={descendingOrderMessages}/>
+
       <ChatInput
          user={user}
          clickedUser={clickedUser} getUserMessages={getUsersMessages} getClickedUsersMessages={getClickedUsersMessages}/>

@@ -4,8 +4,8 @@ import OnBoarding from './pages/OnBoarding'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import {useCookies} from 'react-cookie'
 
-const App = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(['user'])
+export default function App() {
+    const [cookies] = useCookies(['user'])
 
     const authToken = cookies.AuthToken
 
@@ -21,4 +21,3 @@ const App = () => {
     )
 }
 
-export default App

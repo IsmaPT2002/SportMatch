@@ -4,7 +4,7 @@ html, body {
     margin: 0;
     padding: 0;
     text-align: center;
-    /* overflow: hidden; */
+    overflow: hidden;
     
 }
 
@@ -41,10 +41,12 @@ h2 {
     font-weight: 500;
     font-size: 15px;
     text-transform: uppercase;
-    padding: 12px 30px;
+    padding: 6px;
     border-radius: 30px;
     border: solid 2px rgb(121, 119, 119);
     margin: 6px;
+    align-self: center;
+    width: 300px;
 }
 
 .secondary-button:hover {
@@ -328,7 +330,7 @@ nav .logo-container img {
     width: 30%;
     text-align: left;
     z-index: 1;
-    height: 100%;
+    height: 100vh;
 }
 
 .chat-container .chat-container-header {
@@ -369,7 +371,9 @@ nav .logo-container img {
 }
 
 .img-container img {
-    width: 100%;
+    width: 100%; /* Hace que la imagen ocupe todo el ancho del contenedor */
+    height: 100%; /* Hace que la imagen ocupe todo el alto del contenedor */
+    object-fit: cover;
 }
 
 /*-------- Chat Display --------*/
@@ -378,7 +382,7 @@ nav .logo-container img {
     padding: 20px;
     height: 60vh;
     overflow-y: auto;
-    max-height: 150px;
+    max-height: 800px;
 }
 
 /*-------- Chat Input --------*/
@@ -387,8 +391,71 @@ nav .logo-container img {
     display: flex;
     flex-direction: column;
   }
+
+/*-------- Chat Message --------*/
+.message {
+    margin: 0;
+    font-size: 15px;
+    background-color: lightblue ;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 5px;
+    max-width: 350px;
+    overflow-wrap: break-word;
+  }
+  
+  
+.sender {
+    display: flex;
+    align-items: center;
+  }
+
+  .sender .img-container {
+    width: 16px; /* Ajusta el ancho del contenedor a tu preferencia */
+    height: 16px; /* Ajusta la altura del contenedor a tu preferencia */
+    border-radius: 100%; /* Aplica un radio del 50% para lograr la forma circular */
+    overflow: hidden;
+    margin: 3px 0 15px 0
+  }
+  
+  .sender .img-container img {
+    width: 100%; /* Hace que la imagen ocupe todo el ancho del contenedor */
+    height: 100%; /* Hace que la imagen ocupe todo el alto del contenedor */
+    object-fit: cover; /* Ajusta la imagen para que cubra todo el contenedor */
+  }
+  .sender .name {
+    margin: 3px 3px 15px 3px;
+    font-size: 10px;
+  }
+
+  .chat-message-header.left {
+    text-align: left;
+    direction: ltr;
+  }
+  
+  .chat-message-header.right {
+    text-align: right;
+    direction: rtl;
+  }
+  
+  .chat-input textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    font-size: 16px;
+    outline: none;
+    max-width: 350px;
+    overflow: auto;
+    align-self: center;
+  }
   
 
+  
+  
+  
+  
 
 
 

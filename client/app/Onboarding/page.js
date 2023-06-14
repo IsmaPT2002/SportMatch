@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios'
 
 export default function Onboarding() {
-  const [cookies, setCookie, removeCookie] = useCookies('user')
+  const [cookies] = useCookies('user')
   const [formData, setFormData] = useState({
     user_id: cookies.UserId,
     first_name: "",
@@ -133,7 +133,7 @@ export default function Onboarding() {
                 onChange={handleChange}
                 checked={formData.gender_identity === "more"}
               />
-              <label htmlFor="more-gender-identity">Otros</label>
+              <label htmlFor="more-gender-identity">Otro</label>
             </div>
 
             <label>Género de interés</label>

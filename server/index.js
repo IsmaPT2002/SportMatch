@@ -13,13 +13,12 @@ app.use(express.json())
 
 const client = new MongoClient(uri);
 
-// Default
+
 app.get('/', (req, res) => {
     res.json('Hello to my app')
 })
 
 app.post('/signup', async (req, res) => {
-    console.log(req.body)
     const {email, password} = req.body
 
     const generateduserId = uuidv4()
@@ -33,7 +32,7 @@ app.post('/signup', async (req, res) => {
         const existingUser = await users.findOne({email})
 
         if (existingUser) {
-            return res.status(409).json('User already exists')
+            return res.status(409).json('El usuario ya existe')
         }
 
         const sanitizedEmail = email.toLowerCase()
@@ -106,7 +105,6 @@ app.get('/users', async (req, res) => {
             ]
 
         const foundUsers = await users.aggregate(pipeline).toArray()
-        console.log(foundUsers)
         res.send(foundUsers)
 
     } finally {
@@ -191,7 +189,7 @@ app.put('/user', async (req, res) => {
     }
 })
 
-// Update User with a match
+
 app.put('/addmatch', async (req, res) => {
     const client = new MongoClient(uri)
     const {userId, matchedUserId} = req.body
@@ -248,5 +246,5 @@ app.post('/message', async (req, res) => {
     }
 })
 
-app.listen(PORT, () => console.log('server running on PORT ' + PORT))
+app.listen(PORT, () => console.log('Servidor en puerto ' + PORT))
 
