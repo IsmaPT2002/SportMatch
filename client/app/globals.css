@@ -362,13 +362,19 @@ nav .logo-container img {
     color: rgb(255, 255, 255);
 }
 
+.profile h3 {
+    font-size: 30px;
+    max-width: 300px;
+}
+
 .img-container {
-    height: 30px;
-    width: 30px;
+    height: 60px;
+    width: 60px;
     border-radius: 15px;
     overflow: hidden;
     margin: 10px;
 }
+
 
 .img-container img {
     width: 100%; /* Hace que la imagen ocupe todo el ancho del contenedor */
@@ -396,13 +402,16 @@ nav .logo-container img {
 .message {
     margin: 0;
     font-size: 15px;
-    background-color: lightblue ;
+    background-color: lightblue;
     display: inline-block;
     border-radius: 10px;
     padding: 5px;
-    max-width: 350px;
+    max-width: 330px;
     overflow-wrap: break-word;
+    white-space: pre-wrap;
+    text-align: left;
   }
+  
   
   
 .sender {
@@ -446,13 +455,16 @@ nav .logo-container img {
     resize: none;
     font-size: 16px;
     outline: none;
-    max-width: 350px;
+    width: 350px;
     overflow: auto;
     align-self: center;
   }
   
 
-  
+  .match-card {
+        display: flex;
+        align-items: center;
+  }
   
   
   
