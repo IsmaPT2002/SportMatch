@@ -1,12 +1,11 @@
 'use client'
-import Nav from '../../components/Nav'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/navigation';
-import axios from 'axios'
+import axios from 'axios';
 
 export default function Onboarding() {
-  const [cookies] = useCookies('user')
+  const [cookies] = useCookies('user');
   const [formData, setFormData] = useState({
     user_id: cookies.UserId,
     first_name: "",
@@ -20,48 +19,77 @@ export default function Onboarding() {
     experience_level: "",
     training_preferences: "",
     matches: []
-  })
+  });
 
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    console.log('submitted')
-    e.preventDefault()
-    try {
-      const response = await axios.put('http://localhost:8000/user', { formData })
-      const success = response.status === 200
+  useEffect(() => {
+    const checkDiscipline = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/user', {
+          params: {
+            userId: formData.user_id
+          }
+        });
 
-      if (success) router.push('/Dashboard')
-    } catch (err) {
-      console.log(err)
+        const user = response.data;
+        const hasDiscipline = user && user.discipline;
+
+        setFormData((prevState) => ({
+          ...prevState,
+          discipline: hasDiscipline ? user.discipline : ""
+        }));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (formData.user_id) {
+      checkDiscipline();
     }
-  }
+  }, [formData.user_id]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put('http://localhost:8000/user', { formData });
+      const success = response.status === 200;
+
+      if (success) router.push('/Dashboard');
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleChange = (e) => {
-    console.log('e', e)
-    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
-    const name = e.target.name
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    const name = e.target.name;
 
     setFormData((prevState) => ({
       ...prevState,
       [name]: value
-    }))
-  }
+    }));
+  };
+
+  const getTitleText = () => {
+    if (!formData.discipline) {
+      return "CREAR CUENTA";
+    } else {
+      return "ACTUALIZAR DATOS";
+    }
+  };
 
   return (
     <>
-      <Nav
-        minimal={true}
-        setShowModal={() => { }}
-        showModal={false}
-      />
-
       <div className="onboarding">
-        <h2>CREAR CUENTA</h2>
+        <div className="header">
+          <h2>{getTitleText()}</h2>
+        </div>
+        
 
         <form onSubmit={handleSubmit}>
           <section>
-            <label htmlFor="first_name">Nombre</label>
+            <label htmlFor="first_name" className="dato">Nombre</label>
             <input
               id="first_name"
               type='text'
@@ -72,7 +100,7 @@ export default function Onboarding() {
               onChange={handleChange}
             />
 
-            <label>Cumpleaños</label>
+            <label className="dato">Fecha de Nacimiento</label>
             <div className="multiple-input-container">
               <input
                 id="dob_day"
@@ -105,7 +133,7 @@ export default function Onboarding() {
               />
             </div>
 
-            <label>Género</label>
+            <label className="dato">Género</label>
             <div className="multiple-input-container">
               <input
                 id="man-gender-identity"
@@ -136,7 +164,7 @@ export default function Onboarding() {
               <label htmlFor="more-gender-identity">Otro</label>
             </div>
 
-            <label>Género de interés</label>
+            <label className="dato">Género de interés</label>
 
             <div className="multiple-input-container">
               <input
@@ -168,7 +196,7 @@ export default function Onboarding() {
               <label htmlFor="everyone-gender-interest">Cualquiera</label>
             </div>
 
-            <label htmlFor="url">Foto de perfil</label>
+            <label htmlFor="url" className="dato">Foto de perfil</label>
             <input
               type="url"
               name="url"
@@ -180,7 +208,7 @@ export default function Onboarding() {
               {formData.url && <img src={formData.url} alt="profile pic preview" />}
             </div>
 
-            <label htmlFor="discipline">Disciplina deportiva</label>
+            <label htmlFor="discipline" className="dato">Disciplina deportiva</label>
             <select
               id="discipline"
               name="discipline"
@@ -210,7 +238,7 @@ export default function Onboarding() {
               <option value="Esquí">Esquí</option>
             </select>
 
-            <label htmlFor="experience_level">Nivel de experiencia</label>
+            <label htmlFor="experience_level" className="dato">Nivel de experiencia</label>
             <select
               id="experience_level"
               name="experience_level"
@@ -233,7 +261,7 @@ export default function Onboarding() {
               required={true}
             />
 
-            <input type="submit" />
+            <input type="submit" className="enviar"/>
           </section>
         </form>
       </div>

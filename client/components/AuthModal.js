@@ -47,7 +47,7 @@ export default function AuthModal({setShowModal, isSignUp}) {
         <div className="auth-modal">
             <div className="close-icon" onClick={handleClick}>ⓧ</div>
 
-            <h2>{isSignUp ? 'CREAR CUENTA': 'INCIAR SESION'}</h2>
+            <h2>{isSignUp ? 'CREAR CUENTA': 'INCIAR SESIÓN'}</h2>
             <p>Al hacer clic en Iniciar sesión, acepta nuestros términos. Conoce cómo procesamos tus datos en nuestra Política de Privacidad y Política de Cookies.</p>
             <form onSubmit={handleSubmit}>
                 <input

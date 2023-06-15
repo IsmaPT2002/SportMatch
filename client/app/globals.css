@@ -3,10 +3,14 @@
 html, body {
     margin: 0;
     padding: 0;
-    text-align: center;
-    overflow: hidden;
+    text-align: center
     
 }
+
+a {
+    text-decoration: none;
+    color: #084a7e
+  }
 
 h2 {
     font-style: italic;
@@ -25,14 +29,14 @@ h2 {
     color: rgb(255,255,255);
     text-transform: uppercase;
     font-size: 15px;
-    background: linear-gradient(45deg, orange, blue);
+    background: linear-gradient(45deg,  #fba71d , #084a7e);
     padding: 12px 30px;
     border-radius: 30px;
     border: none;
 }
 
 .primary-button:hover {
-    background: linear-gradient(260deg, orange, blue);
+    background: linear-gradient(260deg,  #fba71d , #084a7e);
 }
 
 .secondary-button {
@@ -63,17 +67,34 @@ nav {
     justify-content: space-between;
     align-items: center; /* Agregado para alinear verticalmente los elementos */
     background-color: #161332;
+    position: relative;
 }
 
 nav .nav-button {
     color: #084a7e;
-    background-color: #fba53c;
-    font-size: 20px;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
+    background-color:  #fba71d ;
     margin: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
 }
+
+nav .nav-button-entrar {
+    color: #084a7e;
+    background-color:  #fba71d ;
+    margin: 10px;
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    font-size: 15px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
+}
+
+
 
 nav .nav-button:disabled {
     background-color: #161332;
@@ -111,6 +132,7 @@ nav .logo-container img {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
+    overflow: hidden;
 }
 
 .home {
@@ -150,8 +172,32 @@ nav .logo-container img {
 }
 
 /*-------- OnBoarding Page --------*/
+
+.header {
+    background-color: #084a7e;
+    height: 200px;
+    align-items: center;
+    display: flex;
+  justify-content: center; 
+  align-items: center;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.header h2 {
+    color: #fff;
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .onboarding {
     border-top: solid 1px rgb(213, 213, 213);
+    background: url("/images/fondo_onbo.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .onboarding form {
@@ -174,10 +220,26 @@ nav .logo-container img {
     font-size: 15px;
     border: solid 2px rgb(219, 219, 219);
     border-radius: 10px;
+    background-color: transparent;
+}
+
+
+
+.onboarding form select {
+    padding: 15px 30px;
+    margin: 10px 0;
+    font-size: 15px;
+    border: solid 2px rgb(219, 219, 219);
+    border-radius: 10px;
+    background-color: transparent;
 }
 
 .onboarding form label {
     margin: 10px 0;
+}
+.onboarding form .dato {
+    margin: 10px 0;
+    font-weight: bold;
 }
 
 .onboarding form .multiple-input-container {
@@ -197,10 +259,18 @@ nav .logo-container img {
 
 .onboarding form .multiple-input-container label {
     padding: 10px;
-    border: solid 2px rgb(144, 144, 144);
+    border: solid 2px rgb(219, 219, 219);
     border-radius: 10px;
     transition: all 0.3s;
     margin-right: 10px;
+}
+
+.onboarding form .enviar{
+    background-color: #084a7e;
+    width: 300px;
+    align-self: center;
+    align-items: center;
+    color: #fff;
 }
 
 .onboarding form input[type=radio] {
@@ -212,15 +282,15 @@ nav .logo-container img {
 }
 
 .onboarding form input[type=radio]:checked + label {
-    border: solid 2px #fba53c;
+    border: solid 3px #084a7e;
 }
 
 .onboarding form input[type=submit]:hover {
-    background-color: rgb(235, 235, 235);
+    background-color: #add8f9;
 }
 
 .onboarding form input[type=submit]:active {
-    background-color: #084a7e;
+    background-color:  #fba71d ;
 }
 
 .onboarding form .photo-container {
@@ -241,6 +311,7 @@ nav .logo-container img {
 .dashboard {
     display: flex;
     justify-content: space-between;
+    overflow: hidden;
 }
 
 .dashboard .swipe-container {
@@ -250,6 +321,11 @@ nav .logo-container img {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background: url("/images/fondo_dash.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0.8; 
 }
 
 .swipe {
@@ -334,7 +410,7 @@ nav .logo-container img {
 }
 
 .chat-container .chat-container-header {
-    background: linear-gradient(45deg, #084a7e, #fba53c);
+    background: linear-gradient(45deg, #084a7e,  #fba71d);
     height: 100px;
     display: flex;
     justify-content: space-between;
@@ -389,11 +465,11 @@ nav .logo-container img {
     height: 60vh;
     overflow-y: auto;
     max-height: 800px;
+    margin-bottom: 5px;
 }
 
 /*-------- Chat Input --------*/
 .chat-input {
-    padding: 20px;
     display: flex;
     flex-direction: column;
   }
