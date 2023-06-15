@@ -59,7 +59,7 @@ export default function Dashboard() {
 
 
   const swiped = (direction, swipedUserId) => {
-    if (direction === 'right') {
+    if (direction === 'right' || direction === 'up') {
         updateMatches(swipedUserId)
     }
     setLastDirection(direction)
@@ -110,9 +110,9 @@ const filteredGenderedUsers = genderedUsers?.filter(genderedUser => !matchedUser
                                 
                             </TinderCard>
                         )}
-                        {/* <div className="swipe-info">
+                        <div className="swipe-info">
                             {lastDirection ? <p> {lastDirection}</p> : <p/>}
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>}

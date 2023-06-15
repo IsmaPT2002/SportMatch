@@ -41,6 +41,10 @@ export default function Home() {
           <AuthModal setShowModal={setShowModal} isSignUp={isSignUp} />
         }
       </div>
+      <div className="footer">
+      <p className="left">&copy; 2023 SportMatch </p>
+  <p className="right">Contacto: ismaelpereztierra@gmail.com | Teléfono: +34644379573</p>
+            </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
   import axios from "axios";
   import { useEffect, useState } from "react";
   import { useCookies } from "react-cookie";
+  import { useRouter } from 'next/router'
   
   export default function MatchesDisplay({ matches, setClickedUser }) {
     const [matchedProfiles, setMatchedProfiles] = useState(null);
@@ -32,9 +33,11 @@
     );
   
 
-
+    const reload = () => {window.location.href = '/Dashboard'}
+    
   return (
     <div className="matches-display">
+      <button className="refres" onClick={reload}>Refrescar</button>
       {filteredMatchedProfiles?.map((match) => (
         <div
           key={match.user_id}
