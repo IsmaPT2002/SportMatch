@@ -80,18 +80,34 @@ const filteredGenderedUsers = genderedUsers?.filter(genderedUser => !matchedUser
                 <ChatContainer user={user}/>
                 <div className="swipe-container">
                     <div className="card-container">
-
+                    <div className="expli">
+                    <h1 className="expli1">Desliza según tus preferencias !!!</h1>
+                    <h1 className="expli2">- Si te gusta desliza arriba o derecha</h1>
+                    <h1 className="expli2">- Si no te gusta desliza abajo o izquierda</h1>
+                    </div>
                         {filteredGenderedUsers?.map((genderedUser) =>
                             <TinderCard
                                 className="swipe"
                                 key={genderedUser.user_id}
                                 onSwipe={(dir) => swiped(dir, genderedUser.user_id)}
                                 onCardLeftScreen={() => outOfFrame(genderedUser.first_name)}>
+                                  <div className="person">
+                                  <div className="info">
+                                    <h1>{genderedUser.first_name}</h1>
+                                    <div className="sport">
+                                    <h4>{genderedUser.discipline}</h4><h4>-</h4><h4>{genderedUser.experience_level}</h4>
+                                    </div>
+                                    <div className="text">
+                                    <p>{genderedUser.training_preferences}</p>
+                                      </div>
+                                </div>
                                 <div
                                     style={{backgroundImage: "url(" + genderedUser.url + ")"}}
                                     className="card">
-                                    <h3>{genderedUser.first_name}</h3>
+                                    
                                 </div>
+                                </div>
+                                
                             </TinderCard>
                         )}
                         {/* <div className="swipe-info">
